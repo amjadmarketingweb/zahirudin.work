@@ -38,8 +38,8 @@ export const contact: Contact = {
     href: "https://wa.me/60186662077",
   },
   website: {
-    label: "zahirudin.work",
-    href: "https://zahirudin.work",
+    label: "zahiruddin.work",
+    href: "https://zahiruddin.work",
   },
   location: "Kuala Lumpur, Malaysia",
   cv: {

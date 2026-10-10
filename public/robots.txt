@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zahirudin.work/sitemap.xml
+Sitemap: https://zahiruddin.work/sitemap.xml

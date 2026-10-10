@@ -1,6 +1,6 @@
-# Deployment guide — zahirudin.work
+# Deployment guide — zahiruddin.work
 
-This site is published from the `main` branch of `amjadmarketingweb/zahirudin.work` using GitHub Actions and GitHub Pages. The production domain is exactly `zahirudin.work`.
+This site is published from the `main` branch of `amjadmarketingweb/zahirudin.work` using GitHub Actions and GitHub Pages. The production domain is exactly `zahiruddin.work`.
 
 ## 1. Publish an update with GitHub Desktop
 
@@ -35,12 +35,12 @@ In the GitHub repository:
 1. Open **Settings**.
 2. Select **Pages** under **Code and automation**.
 3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-4. Under **Custom domain**, enter `zahirudin.work` without `https://` or a path.
+4. Under **Custom domain**, enter `zahiruddin.work` without `https://` or a path.
 5. Click **Save**.
 6. Leave the deployment environment named `github-pages`.
 7. In **Settings → Environments → github-pages**, allow only the `main` branch to deploy if an environment branch rule is available.
 
-The repository includes `public/CNAME` because it is useful for domain portability and makes the intended production hostname explicit. For a custom GitHub Actions Pages workflow, GitHub treats the **Custom domain** field in repository settings as authoritative and does not require the `CNAME` file.
+For a custom GitHub Actions Pages workflow, GitHub treats the **Custom domain** field in repository settings as authoritative and does not require a `CNAME` file.
 
 Until the custom domain is registered and active, the same build is available at the temporary project URL:
 
@@ -50,15 +50,15 @@ The source uses GitHub Pages' generated base path, so navigation, images and dow
 
 ### Domain registration prerequisite
 
-Before continuing with domain verification or DNS, confirm that `zahirudin.work` appears in the NameSilo account and has authoritative nameservers. If public DNS returns `NXDOMAIN` or the `.work` registry has no record for the domain, it must be registered first. `zahirudin.work` is distinct from `zahiruddin.net`; do not substitute one for the other.
+Before continuing with domain verification or DNS, confirm that `zahiruddin.work` appears in the NameSilo account and has authoritative nameservers. If public DNS returns `NXDOMAIN` or the `.work` registry has no record for the domain, it must be registered first. `zahiruddin.work` is distinct from `zahiruddin.net` and from the repository name `zahirudin.work`.
 
 ## 4. Verify ownership of the domain
 
-Domain verification protects `zahirudin.work` and its immediate subdomains from being claimed by another GitHub account if this Pages site is ever disabled.
+Domain verification protects `zahiruddin.work` and its immediate subdomains from being claimed by another GitHub account if this Pages site is ever disabled.
 
 1. In GitHub, open the personal account settings for `amjadmarketingweb`.
 2. Select **Pages**.
-3. Click **Add a domain** and enter `zahirudin.work`.
+3. Click **Add a domain** and enter `zahiruddin.work`.
 4. GitHub will show a unique TXT record.
 5. Add that TXT record in NameSilo exactly as GitHub provides it. Its host will normally resemble `_github-pages-challenge-amjadmarketingweb`.
 6. Wait for it to resolve, then return to GitHub and click **Verify**.
@@ -70,7 +70,7 @@ The verification TXT value is unique and must not be guessed or copied from anot
 
 NameSilo can manage these records only when the domain uses NameSilo nameservers. If the authoritative nameservers point elsewhere, make the changes at that DNS provider instead.
 
-Open **NameSilo → Domain Manager → zahirudin.work → DNS Manager** and add these records:
+Open **NameSilo → Domain Manager → zahiruddin.work → DNS Manager** and add these records:
 
 | Name | Type | Address / Value |
 | --- | --- | --- |
@@ -89,9 +89,9 @@ Use NameSilo's default TTL unless there is a specific operational reason to chan
 Important:
 
 - Do not create a CNAME at `@`; NameSilo does not support an apex CNAME or ALIAS/ANAME record.
-- The `www` CNAME must point directly to `amjadmarketingweb.github.io`, not to `zahirudin.work`, a repository path, or a `*.pages.github.io` hostname.
+- The `www` CNAME must point directly to `amjadmarketingweb.github.io`, not to `zahiruddin.work`, a repository path, or a `*.pages.github.io` hostname.
 - Do not include `https://` or a trailing path in a DNS value.
-- Do not enable NameSilo's parking, URL forwarding or **Secure WWW Redirect** template. GitHub Pages handles the `www.zahirudin.work` to `zahirudin.work` redirect when both variants are configured correctly.
+- Do not enable NameSilo's parking, URL forwarding or **Secure WWW Redirect** template. GitHub Pages handles the `www.zahiruddin.work` to `zahiruddin.work` redirect when both variants are configured correctly.
 
 ### Remove conflicting web records
 
@@ -106,9 +106,9 @@ Do not delete unrelated mail configuration. MX records, SPF/DKIM/DMARC TXT recor
 
 ## 6. Apex and www behavior
 
-The canonical domain configured in GitHub is `zahirudin.work`. With the apex A/AAAA records and the `www` CNAME above, GitHub Pages will serve the apex and automatically redirect:
+The canonical domain configured in GitHub is `zahiruddin.work`. With the apex A/AAAA records and the `www` CNAME above, GitHub Pages will serve the apex and automatically redirect:
 
-`www.zahirudin.work` → `zahirudin.work`
+`www.zahiruddin.work` → `zahiruddin.work`
 
 Both variants are configured because GitHub recommends the apex and `www` pair for HTTPS-secured websites.
 
@@ -117,9 +117,9 @@ Both variants are configured because GitHub recommends the apex and `www` pair f
 DNS changes may appear quickly but can take up to 24 hours. On Windows PowerShell, run:
 
 ```powershell
-Resolve-DnsName zahirudin.work -Type A -Server 1.1.1.1
-Resolve-DnsName zahirudin.work -Type AAAA -Server 1.1.1.1
-Resolve-DnsName www.zahirudin.work -Type CNAME -Server 1.1.1.1
+Resolve-DnsName zahiruddin.work -Type A -Server 1.1.1.1
+Resolve-DnsName zahiruddin.work -Type AAAA -Server 1.1.1.1
+Resolve-DnsName www.zahiruddin.work -Type CNAME -Server 1.1.1.1
 ```
 
 Expected results:
@@ -136,7 +136,7 @@ After GitHub shows a successful DNS check and finishes issuing the certificate:
 
 1. Open **Repository Settings → Pages**.
 2. Select **Enforce HTTPS**.
-3. Test both `https://zahirudin.work` and `https://www.zahirudin.work`.
+3. Test both `https://zahiruddin.work` and `https://www.zahiruddin.work`.
 
 Certificate provisioning often completes within an hour, but GitHub advises allowing up to 24 hours after DNS changes. The site must not load CSS, JavaScript, images or fonts over plain `http://`, because mixed content can be blocked even when the page itself uses HTTPS.
 
@@ -163,14 +163,14 @@ Certificate provisioning often completes within an hour, but GitHub advises allo
 - Check the values with `Resolve-DnsName` against public resolver `1.1.1.1`.
 - Confirm `www` does not point to the apex and does not contain the repository name.
 - Remove wildcard DNS records.
-- Confirm `zahirudin.work` is saved in the repository's Pages settings.
+- Confirm `zahiruddin.work` is saved in the repository's Pages settings.
 
 ### The HTTPS certificate is pending
 
 - Remove extra A/AAAA records for `@` and extra records for `www`.
 - If the domain has CAA records, ensure at least one permits `letsencrypt.org`.
 - Allow up to 24 hours after the final DNS correction.
-- If DNS is correct but provisioning remains stuck, remove the custom domain in **Settings → Pages**, enter `zahirudin.work` again, and click **Save** to restart GitHub's certificate process.
+- If DNS is correct but provisioning remains stuck, remove the custom domain in **Settings → Pages**, enter `zahiruddin.work` again, and click **Save** to restart GitHub's certificate process.
 
 ### The browser still shows an old site
 
@@ -192,7 +192,7 @@ Certificate provisioning often completes within an hour, but GitHub advises allo
 - [ ] Changes are committed and pushed to `main`.
 - [ ] The latest GitHub Pages Action succeeds.
 - [ ] Pages source is set to **GitHub Actions**.
-- [ ] Custom domain is exactly `zahirudin.work`.
+- [ ] Custom domain is exactly `zahiruddin.work`.
 - [ ] The GitHub account-level domain verification is complete and its TXT record remains in DNS.
 - [ ] Four A records and four AAAA records point the apex to GitHub Pages.
 - [ ] `www` has one CNAME to `amjadmarketingweb.github.io`.
@@ -200,7 +200,7 @@ Certificate provisioning often completes within an hour, but GitHub advises allo
 - [ ] **Enforce HTTPS** is enabled.
 - [ ] Apex and `www` work on desktop and mobile.
 - [ ] Home, Ebooks, Contact, CV and external publication links work.
-- [ ] `https://zahirudin.work/robots.txt` and `https://zahirudin.work/sitemap.xml` load successfully.
+- [ ] `https://zahiruddin.work/robots.txt` and `https://zahiruddin.work/sitemap.xml` load successfully.
 
 ## Official references
 

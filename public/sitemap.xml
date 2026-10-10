@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://zahirudin.work/</loc>
+    <loc>https://zahiruddin.work/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://zahirudin.work/ebooks/</loc>
+    <loc>https://zahiruddin.work/ebooks/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://zahirudin.work/contact/</loc>
+    <loc>https://zahiruddin.work/contact/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>

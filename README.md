@@ -1,6 +1,6 @@
 # Muhammad Zahiruddin — Professional Portfolio
 
-Production source for [zahirudin.work](https://zahirudin.work), the executive portfolio of Muhammad Zahiruddin (Zahier Khairul).
+Production source for [zahiruddin.work](https://zahiruddin.work), the executive portfolio of Muhammad Zahiruddin (Zahier Khairul).
 
 The site presents his HR Business Partnering, Talent Management, Learning & Development, Organisational Development, workforce strategy and organisation design experience. It is a static Astro website designed for performance, accessibility, search visibility and straightforward future editing.
 
@@ -20,7 +20,7 @@ Technical files such as `robots.txt`, `sitemap.xml` and the 404 page support the
 - pnpm
 - GitHub Actions
 - GitHub Pages
-- NameSilo DNS for `zahirudin.work`
+- NameSilo DNS for `zahiruddin.work`
 
 The deployed site is static and does not require a server for its core functionality.
 
@@ -82,7 +82,7 @@ Every push to `main` starts `.github/workflows/deploy-pages.yml`. The workflow:
 4. uploads the generated `dist/` directory;
 5. deploys it to the protected `github-pages` environment.
 
-The custom domain file is `public/CNAME` and contains exactly `zahirudin.work`. GitHub Actions custom deployments are ultimately controlled by **Repository Settings → Pages → Custom domain**, so that setting must also contain `zahirudin.work`.
+GitHub Actions custom deployments are controlled by **Repository Settings → Pages → Custom domain**, which must contain `zahiruddin.work`. A repository `CNAME` file is not required for this workflow.
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for GitHub Desktop, GitHub Pages, NameSilo DNS, HTTPS and troubleshooting instructions.
 
@@ -91,7 +91,7 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for GitHub Desktop, GitHub Pages, NameSilo DN
 - Owner: `amjadmarketingweb`
 - Repository: `zahirudin.work`
 - Default branch: `main`
-- Production domain: `https://zahirudin.work`
+- Production domain: `https://zahiruddin.work`
 
 ## Factual and editorial standards
 

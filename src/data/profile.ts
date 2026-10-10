@@ -57,7 +57,7 @@ export const profile: Profile = {
     "Project Management Professional (PMP)",
     "Lean Six Sigma Black Belt",
   ],
-  domain: "https://zahirudin.work",
+  domain: "https://zahiruddin.work",
   location: "Kuala Lumpur, Malaysia",
   portrait: {
     src: withBase('/images/hero/muhammad-zahiruddin.webp'),
