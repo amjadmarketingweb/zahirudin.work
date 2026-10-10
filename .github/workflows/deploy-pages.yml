@@ -43,7 +43,7 @@ jobs:
 
       - name: Build Astro site
         run: >-
-          pnpm build --
+          pnpm build
           --site "${{ steps.pages.outputs.origin }}"
           --base "${{ steps.pages.outputs.base_path }}"
 
