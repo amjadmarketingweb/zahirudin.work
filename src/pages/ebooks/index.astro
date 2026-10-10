@@ -1,0 +1,108 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import PublicationCard from '@/components/PublicationCard.astro';
+import CTAButton from '@/components/CTAButton.astro';
+import { publications, professionalIp } from '@/data/publications';
+
+const title = 'Ebooks & Publications | Muhammad Zahiruddin';
+const description = 'Explore HR, People & Capability and aerospace workforce publications by Muhammad Zahiruddin, plus selected professional manuals and learning systems.';
+
+const publicationSchema = publications.map((publication) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Book',
+  name: publication.title,
+  ...(publication.subtitle ? { alternativeHeadline: publication.subtitle } : {}),
+  ...(publication.year ? { datePublished: String(publication.year) } : {}),
+  ...(publication.language ? { inLanguage: publication.language } : {}),
+  url: publication.url,
+  author: {
+    '@type': 'Person',
+    name: 'Muhammad Zahiruddin',
+    alternateName: 'Zahier Khairul',
+    url: 'https://zahirudin.work',
+  },
+  description: publication.description,
+}));
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/ebooks/" schema={publicationSchema}>
+  <section class="page-hero" aria-labelledby="page-title">
+    <div class="shell page-hero__grid">
+      <div>
+        <p class="eyebrow">Ideas in practice</p>
+        <h1 id="page-title">Ebooks &amp;<br />Publications</h1>
+        <p>Practical writing on aerospace workforce capability, Malaysian SME HR and the organisational systems that help people perform.</p>
+      </div>
+      <div class="page-hero__aside">
+        <strong>Published themes</strong>
+        <span>Workforce strategy · Employment practice · Leadership · Learning · Organisational capability</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block" aria-labelledby="published-title">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Published work"
+        title="Practical perspectives for employers and People leaders."
+        intro="Each title links directly to its verified public reading edition."
+        headingId="published-title"
+      />
+      <div class="publication-list">
+        {publications.map((publication, index) => (
+          <PublicationCard
+            title={publication.title}
+            subtitle={publication.subtitle}
+            year={publication.year}
+            language={publication.language}
+            description={publication.description}
+            topics={publication.topics}
+            cover={publication.cover}
+            url={publication.url}
+            type={publication.type}
+            index={index}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block section-block--white" aria-labelledby="ip-title">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Selected professional IP"
+        title="Manuals, guides and capability tools."
+        intro="A selection of internally developed learning and performance assets. These are presented as professional IP rather than public downloads."
+        headingId="ip-title"
+      />
+      <div class="ip-grid">
+        {professionalIp.map((item) => (
+          <article class="ip-card">
+            <span class="ip-card__type">{item.type}</span>
+            <h3>{item.title}</h3>
+            {item.subtitle && <p><strong>{item.subtitle}</strong></p>}
+            <p>{item.description}</p>
+            <ul class="tag-list" aria-label={`Topics in ${item.title}`}>
+              {item.topics.map((topic) => <li>{topic}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-cta" aria-labelledby="ebooks-cta-title">
+    <div class="shell closing-cta__inner">
+      <div>
+        <p class="eyebrow">Continue the conversation</p>
+        <h2 id="ebooks-cta-title">Interested in the thinking behind the work?</h2>
+        <p>Connect to discuss People strategy, workforce capability, organisational development or professional collaboration.</p>
+      </div>
+      <div class="closing-cta__actions">
+        <CTAButton href="/contact/" label="Contact Muhammad" />
+        <CTAButton href="/" label="View portfolio" variant="secondary" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

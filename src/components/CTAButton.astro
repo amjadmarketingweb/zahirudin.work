@@ -1,0 +1,34 @@
+---
+import { withBase } from '@/utils/urls';
+
+interface Props {
+  href: string;
+  label: string;
+  variant?: 'primary' | 'secondary' | 'text';
+  download?: boolean | string;
+  external?: boolean;
+  arrow?: boolean;
+}
+
+const {
+  href,
+  label,
+  variant = 'primary',
+  download = false,
+  external = false,
+  arrow = true,
+} = Astro.props;
+
+const resolvedHref = external ? href : withBase(href);
+---
+
+<a
+  class:list={['button', `button--${variant}`]}
+  href={resolvedHref}
+  download={download}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noreferrer' : undefined}
+>
+  <span>{label}</span>
+  {arrow && <span class="button-arrow" aria-hidden="true">↗</span>}
+</a>

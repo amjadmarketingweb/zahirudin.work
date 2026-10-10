@@ -1,0 +1,82 @@
+---
+interface Logo {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  index: number;
+  company: string;
+  role: string;
+  function?: string;
+  dates: string;
+  context: string;
+  summary: string;
+  achievements: string[];
+  impact?: string[];
+  tags: string[];
+  logo?: Logo;
+}
+
+const {
+  index,
+  company,
+  role,
+  function: roleFunction,
+  dates,
+  context,
+  summary,
+  achievements,
+  impact = [],
+  tags,
+  logo,
+} = Astro.props;
+---
+
+<article class="experience-card">
+  <div class="experience-card__rail">
+    <span>{String(index + 1).padStart(2, '0')}</span>
+    <i aria-hidden="true"></i>
+  </div>
+  <div class="experience-card__body">
+    <header class="experience-card__header">
+      <div class="company-lockup">
+        {logo ? (
+          <span class="company-logo"><img src={logo.src} alt={logo.alt} loading="lazy" decoding="async" /></span>
+        ) : (
+          <span class="company-logo company-logo--fallback" aria-hidden="true">{company.slice(0, 2).toUpperCase()}</span>
+        )}
+        <div>
+          <p class="experience-dates">{dates}</p>
+          <h3>{role}</h3>
+          <p class="experience-company">{company}</p>
+        </div>
+      </div>
+      <p class="experience-context">{context}</p>
+    </header>
+
+    {roleFunction && <p class="role-function">Function: {roleFunction}</p>}
+    <p class="experience-summary">{summary}</p>
+
+    <div class="experience-detail-grid">
+      <div>
+        <h4>Selected contribution</h4>
+        <ul class="check-list">
+          {achievements.map((achievement) => <li>{achievement}</li>)}
+        </ul>
+      </div>
+      {impact.length > 0 && (
+        <div class="impact-panel">
+          <h4>Scope &amp; impact</h4>
+          <ul>
+            {impact.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+
+    <ul class="tag-list" aria-label={`Capabilities demonstrated at ${company}`}>
+      {tags.map((tag) => <li>{tag}</li>)}
+    </ul>
+  </div>
+</article>

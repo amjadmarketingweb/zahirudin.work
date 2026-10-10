@@ -1,0 +1,111 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTAButton from '@/components/CTAButton.astro';
+import { contact } from '@/data/contact';
+
+const title = 'Contact Muhammad Zahiruddin | HR Business Partner';
+const description = 'Contact Muhammad Zahiruddin about HR Business Partnering, Talent, Learning & Development, Organisational Development, workforce strategy and consulting opportunities.';
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Muhammad Zahiruddin',
+  url: 'https://zahirudin.work/contact/',
+  description,
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Muhammad Zahiruddin',
+    alternateName: 'Zahier Khairul',
+    email: contact.email.address,
+    url: contact.website.href,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Kuala Lumpur',
+      addressCountry: 'MY',
+    },
+  },
+};
+
+const contactRows = [
+  {
+    label: 'Email',
+    value: contact.email.address,
+    href: contact.email.href,
+    external: false,
+  },
+  ...(contact.whatsapp ? [{
+    label: 'WhatsApp',
+    value: contact.whatsapp.display,
+    href: contact.whatsapp.href,
+    external: true,
+  }] : []),
+  {
+    label: 'Website',
+    value: contact.website.label,
+    href: contact.website.href,
+    external: true,
+  },
+  {
+    label: 'Based in',
+    value: contact.location,
+    href: undefined,
+    external: false,
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/contact/" schema={contactSchema}>
+  <section class="page-hero" aria-labelledby="page-title">
+    <div class="shell page-hero__grid">
+      <div>
+        <p class="eyebrow">Professional enquiries</p>
+        <h1 id="page-title">Contact Muhammad Zahiruddin</h1>
+        <p>{contact.introduction}</p>
+      </div>
+      <div class="page-hero__aside">
+        <strong>Areas of conversation</strong>
+        <span>HRBP · Talent · L&amp;D · OD · Workforce Strategy · Organisation Design</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block section-block--white" aria-labelledby="connect-title">
+    <div class="shell contact-layout">
+      <div class="contact-intro">
+        <p class="eyebrow">Connect</p>
+        <h2 id="connect-title">Let’s discuss the work that needs to move forward.</h2>
+        <p>For recruiter, hiring, professional-networking and consulting conversations, email or WhatsApp are the most direct contact options.</p>
+        <div class="availability-note">
+          Based in Kuala Lumpur and open to relevant Malaysian, multinational and GCC-connected professional conversations.
+        </div>
+      </div>
+      <ul class="contact-list">
+        {contactRows.map((row) => (
+          <li>
+            <span class="contact-label">{row.label}</span>
+            {row.href ? (
+              <a
+                class="contact-value"
+                href={row.href}
+                target={row.external ? '_blank' : undefined}
+                rel={row.external ? 'noreferrer' : undefined}
+              >{row.value}</a>
+            ) : (
+              <span class="contact-value">{row.value}</span>
+            )}
+            {row.href && <span class="contact-arrow" aria-hidden="true">↗</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="shell cv-panel">
+      <div>
+        <p class="eyebrow">Curriculum vitae</p>
+        <h2>Review the full professional record.</h2>
+        <p>Download Muhammad Zahiruddin’s CV for detailed role history, education and professional credentials.</p>
+      </div>
+      <CTAButton href={contact.cv.href} label={contact.cv.label} download={contact.cv.downloadName} />
+    </div>
+  </section>
+</BaseLayout>

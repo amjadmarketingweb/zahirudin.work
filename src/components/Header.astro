@@ -1,0 +1,58 @@
+---
+import { withBase } from '@/utils/urls';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const navItems = [
+  { label: 'About', href: withBase('/#about') },
+  { label: 'Expertise', href: withBase('/#expertise') },
+  { label: 'Experience', href: withBase('/#experience') },
+  { label: 'Credentials', href: withBase('/#credentials') },
+  { label: 'Ebooks', href: withBase('/ebooks/') },
+  { label: 'Contact', href: withBase('/contact/') },
+];
+
+const ebooksPath = withBase('/ebooks/');
+const contactPath = withBase('/contact/');
+const homePath = withBase('/');
+const cvPath = withBase('/cv/Muhammad-Zahiruddin-CV.pdf');
+
+const isActive = (href: string) => href === ebooksPath
+  ? currentPath.startsWith(ebooksPath)
+  : href === contactPath
+    ? currentPath.startsWith(contactPath)
+    : false;
+---
+
+<header class="site-header">
+  <div class="header-inner shell">
+    <a class="wordmark" href={homePath} aria-label="Muhammad Zahiruddin — home">
+      <span class="wordmark-mark" aria-hidden="true">MZ</span>
+      <span class="wordmark-text">Muhammad<br />Zahiruddin</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {navItems.map((item) => (
+        <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+
+    <a class="header-cta" href={contactPath}>Connect <span aria-hidden="true">↗</span></a>
+
+    <details class="mobile-nav">
+      <summary aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </summary>
+      <nav aria-label="Mobile navigation">
+        {navItems.map((item) => (
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+        ))}
+        <a class="mobile-download" href={cvPath} download>Download CV</a>
+      </nav>
+    </details>
+  </div>
+</header>

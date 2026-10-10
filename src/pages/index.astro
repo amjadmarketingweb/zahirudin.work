@@ -1,0 +1,246 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTAButton from '@/components/CTAButton.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import MetricCard from '@/components/MetricCard.astro';
+import ExpertiseGroup from '@/components/ExpertiseGroup.astro';
+import ExperienceCard from '@/components/ExperienceCard.astro';
+import CredentialCard from '@/components/CredentialCard.astro';
+import {
+  profile,
+  metrics,
+  expertiseGroups,
+  organisationalSystems,
+} from '@/data/profile';
+import { experiences, careerProgression } from '@/data/experience';
+import { education, credentials } from '@/data/credentials';
+import { contact } from '@/data/contact';
+
+const title = 'Muhammad Zahiruddin | HR Business Partner | Talent, L&D & OD';
+const description = 'Portfolio of Muhammad Zahiruddin, an HR Business Partner and People & Capability professional specialising in Talent Management, Learning & Development, Organisational Development, workforce strategy and organisation design.';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  alternateName: profile.alternateName,
+  url: profile.domain,
+  image: new URL(profile.portrait.src, profile.domain).href,
+  jobTitle: 'HR Business Partner',
+  description,
+  email: contact.email.address,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Kuala Lumpur',
+    addressCountry: 'MY',
+  },
+  knowsAbout: expertiseGroups.flatMap((group) => group.items),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/"
+  schema={personSchema}
+  preloadImage={profile.portrait.src}
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="hero-kicker">{profile.eyebrow}</p>
+        <h1 id="hero-title">Muhammad<br />Zahiruddin</h1>
+        <p class="hero-roles">{profile.headline.join(' · ')}</p>
+        <p class="hero-intro">{profile.heroIntro}</p>
+        <div class="hero-actions" aria-label="Primary actions">
+          <CTAButton href="#experience" label="View my experience" />
+          <CTAButton href="/ebooks/" label="Ebooks & publications" variant="secondary" />
+          <CTAButton href="/contact/" label="Contact me" variant="secondary" />
+          <CTAButton href={contact.cv.href} label="Download CV" variant="secondary" download={contact.cv.downloadName} />
+        </div>
+        <ul class="hero-credentials" aria-label="Primary professional credentials">
+          {profile.primaryCredentials.map((credential) => <li>{credential}</li>)}
+        </ul>
+      </div>
+      <div class="hero-media">
+        <img
+          src={profile.portrait.src}
+          alt={profile.portrait.alt}
+          width="900"
+          height="1125"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <div class="hero-note">
+          <strong>Business-facing People leadership</strong>
+          <span>Talent · L&amp;D · OD · Workforce Strategy</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section-block section-block--white" aria-labelledby="about-title">
+    <div class="shell profile-grid">
+      <SectionHeading eyebrow="Professional profile" title="People strategy, translated into practical execution." headingId="about-title" />
+      <div class="profile-copy">
+        <p>HR and People professional with 15+ years of cross-sector experience spanning aerospace and defence-related MRO, diversified business groups, SME consulting, emergency response and education.</p>
+        {profile.profileParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+        <div class="logic-chain" aria-label="How Muhammad connects business and People work">
+          <span>Business problem</span>
+          <span>People problem</span>
+          <span>Capability requirement</span>
+          <span>Organisational solution</span>
+          <span>Execution</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block" aria-labelledby="impact-title">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Career impact"
+        title="Evidence at a glance."
+        intro="Selected indicators are carefully contextualised to show the scale of the work without overstating ownership or current headcount."
+        headingId="impact-title"
+      />
+      <div class="metrics-grid">
+        {metrics.map((metric, index) => (
+          <MetricCard value={metric.value} label={metric.label} note={metric.context} index={index} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="expertise" class="section-block section-block--navy" aria-labelledby="expertise-title">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Core expertise"
+        title="People capability built around business need."
+        intro="A connected practice spanning strategy, talent, learning, organisation and disciplined execution."
+        light
+        headingId="expertise-title"
+      />
+      <div class="expertise-grid">
+        {expertiseGroups.map((group, index) => (
+          <ExpertiseGroup title={group.title} items={group.items} index={index} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="section-block" aria-labelledby="experience-title">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Career journey"
+        title="Five chapters. One integrated leadership story."
+        intro="A progression from hands-on HR and learning delivery to national organisational systems, commercial consulting, Group HR leadership and multinational HR Business Partnering."
+        headingId="experience-title"
+      />
+      <div class="experience-stack">
+        {experiences.map((experience, index) => (
+          <ExperienceCard
+            index={index}
+            company={experience.company}
+            role={experience.role}
+            function={experience.function}
+            dates={experience.dates}
+            context={experience.context.join(' · ')}
+            summary={experience.summary}
+            achievements={experience.achievements}
+            impact={experience.impact}
+            tags={experience.tags}
+            logo={experience.logo}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="progression-panel" aria-labelledby="progression-title">
+    <div class="shell">
+      <p class="eyebrow">Career progression</p>
+      <h2 id="progression-title">A clear progression towards business-facing People leadership.</h2>
+      <div class="progression-track">
+        {careerProgression.map((item) => (
+          <div class="progression-step">
+            <strong>{item.organisation}</strong>
+            <span>{item.focus}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block section-block--white" aria-labelledby="systems-title">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Selected People & organisational systems"
+        title="Frameworks that move capability into performance."
+        intro="Selected systems designed or developed to make expectations, growth and organisational accountability clearer."
+        headingId="systems-title"
+      />
+      <div class="systems-grid">
+        {organisationalSystems.map((system, index) => (
+          <article class="system-card">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{system.title}</h3>
+            <p>{system.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="credentials" class="section-block" aria-labelledby="credentials-title">
+    <div class="shell education-credentials">
+      <div>
+        <SectionHeading eyebrow="Education" title="Commercial, People and risk foundations." />
+        <ul class="education-list">
+          {education.map((item) => (
+            <li>
+              <time datetime={String(item.year)}>{item.year}</time>
+              <div>
+                <strong>{item.qualification}</strong>
+                <span>{item.institution}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <SectionHeading
+          eyebrow="Professional credentials"
+          title="Credentials supporting strategic execution."
+          intro="People leadership strengthened by project management, process improvement, safety, risk and training expertise."
+          headingId="credentials-title"
+        />
+        <div class="credentials-grid">
+          {credentials.map((credential) => (
+            <CredentialCard
+              name={credential.name}
+              issuer={credential.issuer}
+              year={credential.year}
+              featured={credential.featured}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-cta" aria-labelledby="closing-title">
+    <div class="shell closing-cta__inner">
+      <div>
+        <p class="eyebrow">Start a conversation</p>
+        <h2 id="closing-title">Building workforces that are ready for what the business needs next.</h2>
+        <p>{profile.strapline} Based in {profile.location}.</p>
+      </div>
+      <div class="closing-cta__actions">
+        <CTAButton href="/contact/" label="Contact Muhammad" />
+        <CTAButton href={contact.cv.href} label="Download CV" variant="secondary" download={contact.cv.downloadName} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

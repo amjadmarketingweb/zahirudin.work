@@ -1,0 +1,71 @@
+---
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { withBase } from '@/utils/urls';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  socialImage?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  preloadImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = '/',
+  socialImage = '/images/social/muhammad-zahiruddin-og.jpg',
+  schema,
+  preloadImage,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(withBase(canonicalPath), Astro.site);
+const ogImage = new URL(withBase(socialImage), Astro.site);
+const favicon = withBase('/favicon.svg');
+const resolvedPreloadImage = preloadImage ? withBase(preloadImage) : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#07182d" />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={favicon} />
+    {resolvedPreloadImage && <link rel="preload" as="image" href={resolvedPreloadImage} fetchpriority="high" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Muhammad Zahiruddin" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Muhammad Zahiruddin — HR Business Partner and People & Capability professional" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <Header currentPath={Astro.url.pathname} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

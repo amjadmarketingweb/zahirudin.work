@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTAButton from '@/components/CTAButton.astro';
+---
+
+<BaseLayout
+  title="Page not found | Muhammad Zahiruddin"
+  description="The page you requested could not be found. Return to Muhammad Zahiruddin's professional portfolio."
+  canonicalPath="/404.html"
+  noindex
+>
+  <section class="error-page section-block">
+    <div class="shell">
+      <p class="eyebrow">Page not found</p>
+      <h1>404</h1>
+      <p>This page is not part of the portfolio.</p>
+      <CTAButton href="/" label="Return home" />
+    </div>
+  </section>
+</BaseLayout>

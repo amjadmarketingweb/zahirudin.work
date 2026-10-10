@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string;
+  items: string[];
+  index?: number;
+}
+
+const { title, items, index } = Astro.props;
+---
+
+<article class="expertise-card">
+  <div class="expertise-card__head">
+    {index !== undefined && <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>}
+    <h3>{title}</h3>
+  </div>
+  <ul>
+    {items.map((item) => <li>{item}</li>)}
+  </ul>
+</article>

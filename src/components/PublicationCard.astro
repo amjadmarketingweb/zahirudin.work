@@ -1,0 +1,59 @@
+---
+import CTAButton from './CTAButton.astro';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  year?: string | number;
+  language?: string;
+  description: string;
+  topics?: string[];
+  cover?: string;
+  url?: string;
+  type?: string;
+  index?: number;
+}
+
+const {
+  title,
+  subtitle,
+  year,
+  language,
+  description,
+  topics = [],
+  cover,
+  url,
+  type = 'Publication',
+  index,
+} = Astro.props;
+---
+
+<article class="publication-card">
+  <div class="publication-cover">
+    {cover ? (
+      <img src={cover} alt={`Cover of ${title}`} loading="lazy" decoding="async" />
+    ) : (
+      <div class="publication-cover__fallback" aria-hidden="true">
+        <span>{type}</span>
+        <strong>{title}</strong>
+      </div>
+    )}
+    {index !== undefined && <span class="publication-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>}
+  </div>
+  <div class="publication-copy">
+    <p class="publication-meta">{[type, language, year].filter(Boolean).join(' · ')}</p>
+    <h2>{title}</h2>
+    {subtitle && <p class="publication-subtitle">{subtitle}</p>}
+    <p>{description}</p>
+    {topics.length > 0 && (
+      <ul class="tag-list" aria-label={`Topics in ${title}`}>
+        {topics.map((topic) => <li>{topic}</li>)}
+      </ul>
+    )}
+    {url ? (
+      <CTAButton href={url} label="Read publication" variant="secondary" external />
+    ) : (
+      <span class="publication-status">Professional IP · Details available on request</span>
+    )}
+  </div>
+</article>

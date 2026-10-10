@@ -1,0 +1,28 @@
+# Dependencies
+/node_modules/
+/.astro_modules/
+/.pnpm-store/
+
+# Astro build and generated files
+/.astro/
+/dist/
+
+# Local tooling and previews
+/.wrangler/
+/outputs/
+/work/
+
+# Environment files
+.env*
+!.env.example
+
+# Logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+*.pem

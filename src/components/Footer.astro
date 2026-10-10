@@ -1,0 +1,28 @@
+---
+import { withBase } from '@/utils/urls';
+
+const year = new Date().getFullYear();
+const homePath = withBase('/');
+const ebooksPath = withBase('/ebooks/');
+const contactPath = withBase('/contact/');
+const cvPath = withBase('/cv/Muhammad-Zahiruddin-CV.pdf');
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div>
+      <a class="footer-name" href={homePath}>Muhammad Zahiruddin</a>
+      <p>HR Business Partner · Talent Management · L&amp;D · OD</p>
+    </div>
+    <nav aria-label="Footer navigation">
+      <a href={homePath}>Home</a>
+      <a href={ebooksPath}>Ebooks</a>
+      <a href={contactPath}>Contact</a>
+      <a href={cvPath} download>Download CV</a>
+    </nav>
+  </div>
+  <div class="shell footer-base">
+    <span>© {year} Muhammad Zahiruddin</span>
+    <a href="https://zahirudin.work">zahirudin.work</a>
+  </div>
+</footer>

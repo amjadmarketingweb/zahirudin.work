@@ -1,0 +1,17 @@
+---
+interface Props {
+  value: string;
+  label: string;
+  note?: string;
+  index?: number;
+}
+
+const { value, label, note, index } = Astro.props;
+---
+
+<article class="metric-card">
+  {index !== undefined && <span class="metric-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>}
+  <strong>{value}</strong>
+  <h3>{label}</h3>
+  {note && <p>{note}</p>}
+</article>
