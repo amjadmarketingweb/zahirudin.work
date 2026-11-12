@@ -88,7 +88,7 @@ const contactRows = [
                 class="contact-value"
                 href={row.href}
                 target={row.external ? '_blank' : undefined}
-                rel={row.external ? 'noreferrer' : undefined}
+                rel={row.external ? 'noopener noreferrer' : undefined}
               >{row.value}</a>
             ) : (
               <span class="contact-value">{row.value}</span>

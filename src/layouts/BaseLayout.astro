@@ -28,6 +28,31 @@ const canonical = new URL(withBase(canonicalPath), Astro.site);
 const ogImage = new URL(withBase(socialImage), Astro.site);
 const favicon = withBase('/favicon.svg');
 const resolvedPreloadImage = preloadImage ? withBase(preloadImage) : undefined;
+// Structured data is static, escaped before insertion, and explicitly allowed by
+// its exact SHA-256 hash. No executable inline JavaScript is permitted.
+const schemaJson = schema ? JSON.stringify(schema).replaceAll('<', '\\u003c') : undefined;
+const schemaDigest = schemaJson
+  ? await crypto.subtle.digest('SHA-256', new TextEncoder().encode(schemaJson))
+  : undefined;
+const schemaHash = schemaDigest
+  ? btoa(Array.from(new Uint8Array(schemaDigest), (byte) => String.fromCharCode(byte)).join(''))
+  : undefined;
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  schemaHash ? `script-src 'sha256-${schemaHash}'` : "script-src 'none'",
+  "style-src 'self'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "connect-src 'none'",
+  "media-src 'none'",
+  "object-src 'none'",
+  "frame-src 'none'",
+  "worker-src 'none'",
+  "base-uri 'self'",
+  "form-action 'none'",
+  'upgrade-insecure-requests',
+  'block-all-mixed-content',
+].join('; ');
 ---
 
 <!doctype html>
@@ -35,6 +60,8 @@ const resolvedPreloadImage = preloadImage ? withBase(preloadImage) : undefined;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content={contentSecurityPolicy} />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#07182d" />
     <meta name="color-scheme" content="light" />
@@ -58,7 +85,7 @@ const resolvedPreloadImage = preloadImage ? withBase(preloadImage) : undefined;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+    {schemaJson && <script type="application/ld+json" set:html={schemaJson} />}
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>

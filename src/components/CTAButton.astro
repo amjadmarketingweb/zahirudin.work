@@ -27,7 +27,7 @@ const resolvedHref = external ? href : withBase(href);
   href={resolvedHref}
   download={download}
   target={external ? '_blank' : undefined}
-  rel={external ? 'noreferrer' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
 >
   <span>{label}</span>
   {arrow && <span class="button-arrow" aria-hidden="true">↗</span>}
